@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Brand Global Trend Map - 콜로세움</title>
+  <meta name="description" content="2024-2025 국가별 K-브랜드 수출 트렌드 맵. 미국, 일본, 유럽, 동남아, 중국의 인기 품목과 진출 전략을 확인하세요.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    * {
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .country-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .country-card:hover {
+      transform: translateY(-2px);
+    }
+    .country-card.active {
+      transform: scale(1.02);
+    }
+    .product-tag {
+      animation: fadeIn 0.3s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .growth-bar {
+      transition: width 0.6s ease-out;
+    }
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.2); }
+    }
+    .scroll-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scroll-container::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto scroll-container" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);">
+    <!-- Header -->
+    <header class="text-center py-6 px-4 border-b border-white/10">
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <span class="text-3xl">🌎</span>
+        <h1 id="main-title" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">2024-2025 국가별 K-브랜드 트렌드 맵</h1>
+      </div>
+      <p id="subtitle" class="text-slate-400 text-sm md:text-base">지금 세계에서 가장 잘 팔리는 한국 제품은?</p>
+    </header>
+
+    <!-- Country Selector -->
+    <nav class="flex flex-wrap justify-center gap-2 p-4 sticky top-0 z-10" style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);">
+      <button onclick="selectCountry('usa')" data-country="usa" class="country-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-white/10 text-white hover:bg-white/20 flex items-center gap-2">
+        <span>🇺🇸</span> 미국
+      </button>
+      <button onclick="selectCountry('japan')" data-country="japan" class="country-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-white/10 text-white hover:bg-white/20 flex items-center gap-2">
+        <span>🇯🇵</span> 일본
+      </button>
+      <button onclick="selectCountry('europe')" data-country="europe" class="country-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-white/10 text-white hover:bg-white/20 flex items-center gap-2">
+        <span>🇪🇺</span> 유럽
+      </button>
+      <button onclick="selectCountry('asean')" data-country="asean" class="country-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-white/10 text-white hover:bg-white/20 flex items-center gap-2">
+        <span>🌏</span> 동남아
+      </button>
+      <button onclick="selectCountry('china')" data-country="china" class="country-btn px-4 py-2 rounded-full text-sm font-medium transition-all bg-white/10 text-white hover:bg-white/20 flex items-center gap-2">
+        <span>🇨🇳</span> 중국
+      </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="p-4 md:p-6 max-w-6xl mx-auto">
+      <div id="content-area" class="grid gap-4 md:gap-6">
+        <!-- Content will be dynamically inserted here -->
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-slate-500 text-xs border-t border-white/10">
+      데이터 출처: 관세청, KOTRA, 각국 무역통계 (2024-2025)
+    </footer>
+  </div>
+
+  <script>
+    const countryData = {
+      usa: {
+        name: '미국',
+        flag: '🇺🇸',
+        rank: '수출 1위',
+        value: '16억 달러',
+        color: '#3b82f6',
+        products: [
+          { name: '뷰티 디바이스', growth: 123, desc: '메디큐브, 블랙프라이데이 카테고리 1위', icon: '✨' },
+          { name: '냉동 김밥·HMR', growth: 85, desc: '간편식 수요 폭발, 현지 대형마트 입점 증가', icon: '🍱' },
+          { name: '소스류', growth: 11.4, desc: '불닭마요, 까르보불닭 등 매운맛 소스', icon: '🌶️' }
+        ],
+        tips: [
+          { icon: '📋', text: 'FDA 시설 등록 필수 (FFR)' },
+          { icon: '🛒', text: '주요 채널: 아마존, 월마트, 코스트코' },
+          { icon: '📦', text: '직배송 vs LA 풀필먼트 선택 전략' }
+        ],
+        platforms: ['Amazon', 'Walmart', 'Costco', 'Target']
+      },
+      japan: {
+        name: '일본',
+        flag: '🇯🇵',
+        rank: '수출 2위',
+        value: '11억 6천만 달러',
+        color: '#ef4444',
+        products: [
+          { name: '펫푸드', growth: 40, desc: '프리미엄 사료·간식, 일본 소비자 선호도 1위', icon: '🐕' },
+          { name: '김', growth: 14, desc: '8억 8천만 달러 규모', icon: '🍙' },
+          { name: '화장품', growth: 120.8, desc: '수입량 급증', icon: '💄' }
+        ],
+        tips: [
+          { icon: '✅', text: 'JAS 인증, 식품위생법 대응 필수' },
+          { icon: '🛒', text: '주요 채널: 라쿠텐, 이온몰, 돈키호테' },
+          { icon: '📦', text: '치밀한 품질·포장 관리 요구' }
+        ],
+        platforms: ['Rakuten', 'AEON', 'Don Quijote', 'Amazon JP']
+      },
+      europe: {
+        name: '유럽',
+        flag: '🇪🇺',
+        rank: '급성장',
+        value: '34.1% 성장',
+        color: '#8b5cf6',
+        products: [
+          { name: 'K-뷰티', growth: 34.1, desc: '프랑스 엘르: K-뷰티 없이 시장 논할 수 없어', icon: '💎' },
+          { name: '소스류', growth: 28, desc: '고추장, 된장, 불닭소스', icon: '🫙' },
+          { name: '김치', growth: 22, desc: '수출 증가세', icon: '🥬' }
+        ],
+        tips: [
+          { icon: '🏷️', text: 'CE 인증, EU 화장품 규정 대응' },
+          { icon: '🛒', text: '주요 채널: 아마존 EU, 더글라스, 세포라' },
+          { icon: '🌿', text: '친환경·클린뷰티 트렌드 필수' }
+        ],
+        platforms: ['Amazon EU', 'Douglas', 'Sephora', 'Zalando']
+      },
+      asean: {
+        name: '동남아',
+        flag: '🌏',
+        rank: 'ASEAN',
+        value: '10배 성장 (4년)',
+        color: '#10b981',
+        products: [
+          { name: '펫푸드', growth: 925, desc: '2018년 400만$ → 2022년 4,100만$', icon: '🐾' },
+          { name: '화장품·뷰티 디바이스', growth: 45, desc: 'K-뷰티 열풍 지속', icon: '🪞' },
+          { name: '소스류·김치', growth: 38, desc: '한식 인기 상승', icon: '🍜' }
+        ],
+        tips: [
+          { icon: '☪️', text: '국가별 할랄 인증 (말레이시아, 인도네시아)' },
+          { icon: '🛒', text: '주요 채널: 쇼피, 라자다, 티몰' },
+          { icon: '📱', text: '라이브커머스 마케팅 필수' }
+        ],
+        platforms: ['Shopee', 'Lazada', 'Tmall', 'TikTok Shop']
+      },
+      china: {
+        name: '중국',
+        flag: '🇨🇳',
+        rank: '대형 시장',
+        value: '15억 달러 (12.5% 성장)',
+        color: '#f59e0b',
+        products: [
+          { name: '뷰티 디바이스', growth: 150, desc: '왕홍 라이브커머스 3회, 36억 원 매출', icon: '⚡' },
+          { name: '화장품', growth: 45, desc: 'K-뷰티 프리미엄 이미지', icon: '🧴' },
+          { name: '펫푸드·간식', growth: 35, desc: '프리미엄 시장 공략', icon: '🐱' }
+        ],
+        tips: [
+          { icon: '📄', text: 'CFDA 등록, 동물실험 면제 조건 확인' },
+          { icon: '🛒', text: '주요 채널: 티몰, 타오바오, 샤오홍슈' },
+          { icon: '📺', text: '왕홍 마케팅 & 라이브커머스 전략' }
+        ],
+        platforms: ['Tmall', 'Taobao', 'Xiaohongshu', 'JD.com']
+      }
+    };
+
+    let selectedCountry = null;
+
+    function selectCountry(countryId) {
+      selectedCountry = countryId;
+      
+      document.querySelectorAll('.country-btn').forEach(btn => {
+        const isActive = btn.dataset.country === countryId;
+        btn.style.background = isActive ? countryData[countryId].color : 'rgba(255,255,255,0.1)';
+        btn.style.transform = isActive ? 'scale(1.05)' : 'scale(1)';
+      });
+
+      renderContent(countryId);
+    }
+
+    function renderContent(countryId) {
+      const data = countryData[countryId];
+      const contentArea = document.getElementById('content-area');
+      
+      contentArea.innerHTML = `
+        <!-- Country Header Card -->
+        <div class="country-card active rounded-2xl p-6 border border-white/10" style="background: linear-gradient(135deg, ${data.color}20, ${data.color}05);">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="text-5xl">${data.flag}</span>
+            <div>
+              <h2 class="text-2xl font-bold text-white">${data.name}</h2>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="px-2 py-0.5 rounded-full text-xs font-medium" style="background: ${data.color}; color: white;">${data.rank}</span>
+                <span class="text-slate-300 text-sm font-medium">${data.value}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid md:grid-cols-3 gap-4">
+          ${data.products.map((product, i) => `
+            <div class="product-tag country-card rounded-xl p-5 border border-white/10 bg-white/5 hover:bg-white/10" style="animation-delay: ${i * 0.1}s">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">${product.icon}</span>
+                <div>
+                  <h3 class="font-semibold text-white">${product.name}</h3>
+                  <div class="flex items-center gap-1">
+                    <span class="pulse-dot w-2 h-2 rounded-full" style="background: ${data.color};"></span>
+                    <span class="text-xs font-bold" style="color: ${data.color};">+${product.growth}% 성장</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed">${product.desc}</p>
+              <div class="mt-3 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                <div class="growth-bar h-full rounded-full" style="width: ${Math.min(product.growth, 100)}%; background: linear-gradient(90deg, ${data.color}, ${data.color}80);"></div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Tips & Platforms -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <!-- Tips Card -->
+          <div class="country-card rounded-xl p-5 border border-white/10 bg-white/5">
+            <h3 class="flex items-center gap-2 text-lg font-semibold text-white mb-4">
+              <span class="text-xl">💡</span> ${data.name} 진출 TIP
+            </h3>
+            <div class="space-y-3">
+              ${data.tips.map(tip => `
+                <div class="flex items-start gap-3 text-sm">
+                  <span class="text-lg">${tip.icon}</span>
+                  <span class="text-slate-300">${tip.text}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Platforms Card -->
+          <div class="country-card rounded-xl p-5 border border-white/10 bg-white/5">
+            <h3 class="flex items-center gap-2 text-lg font-semibold text-white mb-4">
+              <span class="text-xl">🛒</span> 주요 플랫폼
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              ${data.platforms.map(platform => `
+                <span class="px-3 py-1.5 rounded-lg text-sm font-medium text-white border border-white/20" style="background: ${data.color}30;">${platform}</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        document.querySelectorAll('.growth-bar').forEach(bar => {
+          bar.style.width = bar.style.width;
+        });
+      }, 100);
+    }
+
+    function renderAllCountries() {
+      const contentArea = document.getElementById('content-area');
+      
+      contentArea.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-slate-400 text-lg">위의 국가 버튼을 클릭하여 상세 정보를 확인하세요</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          ${Object.entries(countryData).map(([id, data]) => `
+            <button onclick="selectCountry('${id}')" class="country-card text-left rounded-xl p-5 border border-white/10 bg-white/5 hover:bg-white/10 transition-all">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-3xl">${data.flag}</span>
+                <div>
+                  <h3 class="font-semibold text-white">${data.name}</h3>
+                  <span class="text-xs px-2 py-0.5 rounded-full" style="background: ${data.color}; color: white;">${data.rank}</span>
+                </div>
+              </div>
+              <p class="text-slate-400 text-sm">${data.value}</p>
+              <div class="mt-3 flex gap-1">
+                ${data.products.slice(0, 3).map(p => `<span class="text-lg">${p.icon}</span>`).join('')}
+              </div>
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // Initialize
+    renderAllCountries();
+  </script>
+</body>
+</html>
