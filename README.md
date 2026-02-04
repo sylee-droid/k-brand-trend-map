@@ -1,0 +1,1 @@
+# k-brand-trend-map
